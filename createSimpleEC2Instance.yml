@@ -1,0 +1,27 @@
+---
+
+# Create a simpler EC2 instance
+
+- name: Create a simple EC2 instance
+  ec2:
+    key_name: mykeyaws
+    instance_type: t2.micro
+    image: ami-ac442ac3
+    wait: yes
+    count: 1
+    vpc_subnet_id: subnet-23af3748
+    #vpc_subnet_id: "{{ id_subnet }}"
+    assign_public_ip: yes
+    group: server
+    region: eu-central-1
+  register: ec2
+
+- name: Service Linking vie Endpoint
+  manageiq_vmdb:
+    vmdb: "services/{{ service_id }}"
+    action: add_provider_vms
+    data:
+      uid_ems:
+        - "{{ ec2.instances[0].id }}"
+      provider:
+        id: {{ provider_id }}
