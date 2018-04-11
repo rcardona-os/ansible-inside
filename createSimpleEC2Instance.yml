@@ -4,16 +4,15 @@
 
 - name: Create a simple EC2 instance
   ec2:
-    key_name: mykeyaws
-    instance_type: t2.micro
-    image: ami-ac442ac3
+    key_name: {{ key }}
+    instance_tags: {Name: "{{ name }}"}
+    group_id: "{{ security_group }}"
+    image: "{{ image }}"
     wait: yes
     count: 1
-    vpc_subnet_id: subnet-23af3748
-    #vpc_subnet_id: "{{ id_subnet }}"
+    vpc_subnet_id: "{{ subnet }}"
     assign_public_ip: yes
-    group: server
-    region: eu-central-1
+    region: {{ region }}
   register: ec2
 
 - name: Service Linking vie Endpoint
