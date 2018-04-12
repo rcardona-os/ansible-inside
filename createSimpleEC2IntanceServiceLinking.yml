@@ -1,0 +1,26 @@
+---
+
+# Create a simpler EC2 instance
+
+- name: Create a simple EC2 instance
+  ec2:
+    key_name: {{ key }}
+    instance_tags: {Name: "{{ name }}"}
+    group_id: "{{ security_group }}"
+    image: "{{ image }}"
+    wait: yes
+    count: 1
+    vpc_subnet_id: "{{ subnet }}"
+    assign_public_ip: yes
+    region: {{ region }}
+  register: ec2
+
+- name: Service Linking vie Endpoint
+  manageiq_vmdb:
+    vmdb: "services/{{ service_id }}"
+    action: add_provider_vms
+    data:
+      uid_ems:
+        - "{{ ec2.instances[0].id }}"
+      provider:
+        id: {{ provider_id }}
