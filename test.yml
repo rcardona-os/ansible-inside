@@ -1,0 +1,21 @@
+---
+# Create a simple VM
+# It will create with the default security group which will by rule no outside world access de facto
+# So in other to ssh / http to the server it will require configure the proper security groups.
+
+- name: Create a simple VM instance
+  hosts: localhost
+  connection: local
+  tasks:
+    - name: Deploy new VM instance
+      ec2:
+        key_name: mykeyaws
+        instance_type: t2.micro
+        image: ami-ac442ac3
+        wait: yes
+        count: 1
+        vpc_subnet_id: subnet-23af3748
+        #vpc_subnet_id: "{{ id_subnet }}"
+        assign_public_ip: yes
+        group: server
+        region: eu-central-1
