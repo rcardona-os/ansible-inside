@@ -14,13 +14,3 @@
     assign_public_ip: yes
     region: {{ region }}
   register: ec2
-
-- name: Service Linking vie Endpoint
-  manageiq_vmdb:
-    vmdb: "services/{{ service_id }}"
-    action: add_provider_vms
-    data:
-      uid_ems:
-        - "{{ ec2.instances[0].id }}"
-      provider:
-        id: {{ provider_id }}
