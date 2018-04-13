@@ -1,6 +1,5 @@
 ---
-
-# Create a simpler EC2 instance
+# Create a simpler EC2 instance with service linking
 
 - name: Create a simple EC2 instance
   ec2:
@@ -15,7 +14,7 @@
     region: {{ region }}
   register: ec2
 
-- name: Service Linking vie Endpoint
+- name: Service Linking via Endpoint
   manageiq_vmdb:
     vmdb: "services/{{ service_id }}"
     action: add_provider_vms
