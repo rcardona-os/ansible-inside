@@ -15,5 +15,5 @@
         count: 1
         vpc_subnet_id: "{{ dialog_subnet }}"
         assign_public_ip: yes
-        region: {{ dialog_region }}
+        region: "{{ dialog_region }}"
       register: ec2
