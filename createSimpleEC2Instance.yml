@@ -7,14 +7,14 @@
   tasks:
     - name: Provision new VM instance
       ec2:
-        key_name: mykeyaws
-        instance_type: t2.micro
         instance_tags: {Name: "{{ name }}"}
-        group: default
-        image: "{{ image }}"
-        wait: yes
-        count: 1
         vpc_subnet_id: "{{ subnet }}"
+        instance_type: "{{ instanceType }}"
+        image: "{{ image }}"
+        group: "{{ groupName }}"
         assign_public_ip: yes
-        region: eu-central-1
+        region: "{{ region }}"
+        key_name: "{{ key }}"
+        wait: yes
+        count: 1  
       register: ec2
