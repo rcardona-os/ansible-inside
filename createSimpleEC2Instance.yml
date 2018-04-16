@@ -7,13 +7,13 @@
   tasks:
     - name: Provision new VM instance
       ec2:
-        key_name: {{ key }}
-        instance_tags: {Name: "{{ name }}"}
-        group_id: "{{ security_group }}"
-        image: "{{ image }}"
+        key_name: {{ dialog_key }}
+        instance_tags: {Name: "{{ dialog_name }}"}
+        group_id: "{{ dialog_security_group }}"
+        image: "{{ dialog_image }}"
         wait: yes
         count: 1
-        vpc_subnet_id: "{{ subnet }}"
+        vpc_subnet_id: "{{ dialog_subnet }}"
         assign_public_ip: yes
-        region: {{ region }}
+        region: {{ dialog_region }}
       register: ec2
