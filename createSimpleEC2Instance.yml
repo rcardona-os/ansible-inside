@@ -9,12 +9,12 @@
       ec2:
         key_name: mykeyaws
         instance_type: t2.micro
-        instance_tags: {Name: "{{ dialog_name }}"}
-        group: "{{ dialog_security_group }}"
-        image: "{{ dialog_image }}"
+        instance_tags: {Name: "{{ name }}"}
+        group: "{{ security_group }}"
+        image: "{{ image }}"
         wait: yes
         count: 1
-        vpc_subnet_id: "{{ dialog_subnet }}"
+        vpc_subnet_id: "{{ subnet }}"
         assign_public_ip: yes
-        region: "{{ dialog_region }}"
+        region: "{{ region }}"
       register: ec2
