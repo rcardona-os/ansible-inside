@@ -9,7 +9,7 @@
       ec2:
         key_name: mykeyaws
         instance_type: t2.micro
-        #instance_tags: {Name: "{{ name }}"}
+        instance_tags: {Name: "{{ name }}"}
         group: default
         image: "{{ image }}"
         wait: yes
