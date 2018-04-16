@@ -7,9 +7,10 @@
   tasks:
     - name: Provision new VM instance
       ec2:
-        key_name: "{{ dialog_key }}"
+        key_name: mykeyaws
+        instance_type: t2.micro
         instance_tags: {Name: "{{ dialog_name }}"}
-        group_id: "{{ dialog_security_group }}"
+        group: "{{ dialog_security_group }}"
         image: "{{ dialog_image }}"
         wait: yes
         count: 1
