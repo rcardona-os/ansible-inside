@@ -10,7 +10,7 @@
         key_name: mykeyaws
         instance_type: t2.micro
         instance_tags: {Name: "{{ name }}"}
-        group: "{{ security_group }}"
+        group: default
         image: "{{ image }}"
         wait: yes
         count: 1
