@@ -8,13 +8,13 @@
     - name: Provision new VM instance
       ec2:
         instance_tags: {Name: "{{ name }}"}
+        region: "{{ region }}"
         vpc_subnet_id: "{{ subnet }}"
         instance_type: "{{ instanceType }}"
         image: "{{ image }}"
         group: "{{ groupName }}"
         assign_public_ip: yes
-        region: "{{ region }}"
         key_name: "{{ key }}"
         wait: yes
-        count: 1  
+        count: 1
       register: ec2
