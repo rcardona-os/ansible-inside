@@ -2,24 +2,40 @@
 # Create a simpler EC2 instance with service linking
 
 - name: Create a simple EC2 instance
-  ec2:
-    key_name: {{ key }}
-    instance_tags: {Name: "{{ name }}"}
-    group_id: "{{ security_group }}"
-    image: "{{ image }}"
-    wait: yes
-    count: 1
-    vpc_subnet_id: "{{ subnet }}"
-    assign_public_ip: yes
-    region: {{ region }}
-  register: ec2
+  hosts: localhost
+  connection: local
+  gather_facts: False
 
-- name: Service Linking via Endpoint
-  manageiq_vmdb:
-    vmdb: "services/{{ service_id }}"
-    action: add_provider_vms
-    data:
-      uid_ems:
-        - "{{ ec2.instances[0].id }}"
-      provider:
-        id: {{ provider_id }}
+  roles:
+  - syncrou.manageiq-vmdb
+
+  tasks:
+
+    - name: Get a vmdb object
+    manageiq_vmdb:
+      href: "services/80"
+    register: vmdb_object
+
+    - name: Provision new VM instance
+      ec2:
+        instance_tags: {Name: "{{ name }}"}
+        region: "{{ region }}"
+        vpc_subnet_id: "{{ subnet }}"
+        instance_type: "{{ instanceType }}"
+        image: "{{ image }}"
+        group: "{{ groupName }}"
+        assign_public_ip: yes
+        key_name: "{{ key }}"
+        wait: yes
+        count: 1
+      register: ec2
+
+    - name: Service Linking via an object
+    manageiq_vmdb:
+      vmdb: "{{ vmdb_object }}"
+      action: add_provider_vms
+      data:
+        uid_ems:
+          - "asdf234"
+        provider:
+          id: 99000000000002
