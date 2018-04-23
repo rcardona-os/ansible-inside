@@ -38,4 +38,4 @@
         uid_ems:
           - "asdf1234"
         provider:
-          id: "{{ provider_id }}"
+          id: 99000000000002
