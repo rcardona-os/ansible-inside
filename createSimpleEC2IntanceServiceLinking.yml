@@ -36,6 +36,6 @@
       action: add_provider_vms
       data:
         uid_ems:
-          - "asdf234"
+          - "asdf1234"
         provider:
-          id: 99000000000002
+          id: "{{ provider_id }}"

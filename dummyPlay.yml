@@ -1,0 +1,9 @@
+---
+# Create a simple dummy task
+
+- name: Create a simple VM instance
+  hosts: localhost
+  connection: local
+  tasks:
+    - name: Gather VPC Subnects facts
+      ec2_vpc_subnet_facts:
