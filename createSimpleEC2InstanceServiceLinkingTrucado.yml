@@ -5,6 +5,8 @@
   hosts: localhost
   connection: local
   gather_facts: False
+  vars:
+    - manageiq_validate_certs: false
 
   roles:
   - syncrou.manageiq-vmdb
