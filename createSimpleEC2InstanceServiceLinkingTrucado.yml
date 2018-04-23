@@ -12,9 +12,9 @@
   tasks:
 
     - name: Get a vmdb object
-    manageiq_vmdb:
-      href: "services/80"
-    register: vmdb_object
+      manageiq_vmdb:
+        href: "services/80"
+      register: vmdb_object
 
     - name: Provision new VM instance
       ec2:
@@ -31,11 +31,11 @@
       register: ec2
 
     - name: Service Linking via an object
-    manageiq_vmdb:
-      vmdb: "{{ vmdb_object }}"
-      action: add_provider_vms
-      data:
-        uid_ems:
-          - "asdf1234"
-        provider:
-          id: 99000000000002
+      manageiq_vmdb:
+        vmdb: "{{ vmdb_object }}"
+        action: add_provider_vms
+        data:
+          uid_ems:
+            - "asdf1234"
+          provider:
+            id: 99000000000002
